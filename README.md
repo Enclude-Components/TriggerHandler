@@ -13,7 +13,7 @@ Originally by Kevin O'Hara github.com/kevinohara80/sfdc-trigger-framework
 ## Usage Guide
 
 ### Extension Class
-Create a class which extends the case Trigger Handler class
+Create a class which extends the base Trigger Handler class and overrides at least one of its operation methods
 
 ```java
 // AccountTriggerHandler.cls
@@ -31,7 +31,7 @@ public with sharing class AccountTriggerHandler extends TriggerHandler {
 }
 ```
 
-#### Overridable Methods
+#### Overridable Operation Methods
 - beforeInsert
 - beforeUpdate
 - beforeDelete
@@ -41,10 +41,8 @@ public with sharing class AccountTriggerHandler extends TriggerHandler {
 - afterUndelete
 
 ### Trigger
-Only a single trigger should exist for any object.
-
 ```java
-// Account.trigger
+// AccountTrigger.trigger
 trigger AccountTrigger on Account(
    before insert
 ) {
