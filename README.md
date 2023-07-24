@@ -1,12 +1,10 @@
 # Trigger Handler
-
 An opinionated trigger handler framework. Contains a single virtual class that can be extended to create a trigger handler without a lot of boilerplate code.
 
 _Credit to https://github.com/trailheadapps_  
 Originally by Kevin O'Hara github.com/kevinohara80/sfdc-trigger-framework
 
 ## Deploy
-
 <a href="https://githubsfdeploy.herokuapp.com?owner=Enclude-Components&repo=TriggerHandler&ref=main">
   <img alt="Deploy to Salesforce"
        src="https://raw.githubusercontent.com/afawcett/githubsfdeploy/master/deploy.png">
@@ -15,10 +13,10 @@ Originally by Kevin O'Hara github.com/kevinohara80/sfdc-trigger-framework
 ## Usage Guide
 
 ### Extension Class
-
 Create a class which extends the case Trigger Handler class
 
 ```java
+// AccountTriggerHandler.cls
 public with sharing class AccountTriggerHandler extends TriggerHandler {
     public override void beforeInsert() {
         // Code here will run when in the "Before Insert" Context
@@ -34,7 +32,6 @@ public with sharing class AccountTriggerHandler extends TriggerHandler {
 ```
 
 #### Overridable Methods
-
 - beforeInsert
 - beforeUpdate
 - beforeDelete
@@ -44,27 +41,19 @@ public with sharing class AccountTriggerHandler extends TriggerHandler {
 - afterUndelete
 
 ### Trigger
-
-Only a single trigger should exist for each object. Not all operations need to be handled, but it can be useful to do so to prevent having to update the trigger.
+Only a single trigger should exist for any object.
 
 ```java
+// Account.trigger
 trigger AccountTrigger on Account(
-   before insert,
-   after insert,
-   before update,
-   after update,
-   before delete,
-   after delete,
-   after undelete
+   before insert
 ) {
-   //
    new AccountTriggerHandler().run();
 }
 ```
 
 ### Max Loop Count
-
-A Max Loop Count can be set to ensure that a trigger only runs once in the current transaction (though this should normally not be necessary)
+A Max Loop Count can be set to ensure that a trigger only runs once in the current transaction (though this should not normally be necessary)
 
 ```java
 trigger Account on Account (after update) {
@@ -81,7 +70,6 @@ trigger Account on Account (after update) {
 ```
 
 ### Bypassing a Trigger
-
 Calling the `TriggerHandler.bypass` static method will ensure that the specified trigger does not run for the current transaction
 
 ```java
